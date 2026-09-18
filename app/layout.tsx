@@ -19,9 +19,9 @@ const mono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "EcoTrack — diario de huella",
+  title: "EcoTrack AI — bitácora de emisiones",
   description:
-    "Registra tu huella de carbono diaria con una frase en lenguaje natural.",
+    "Registra la huella de carbono de tu negocio con una frase en lenguaje natural.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

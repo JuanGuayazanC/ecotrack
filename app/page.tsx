@@ -3,7 +3,7 @@
 import { FormEvent, useState } from "react";
 import type { DiaryEstimate } from "@/lib/estimate";
 
-const SAMPLE = "Hoy comí carne y viajé 20km en bus";
+const SAMPLE = "Hoy usamos 5 camionetas de reparto y gastamos 200 kWh de electricidad.";
 
 export default function Home() {
   const [text, setText] = useState(SAMPLE);
@@ -40,67 +40,97 @@ export default function Home() {
   return (
     <div className="page">
       <header className="mast">
-        <p className="mark">EcoTrack</p>
-        <p className="mark-sub">Cuaderno de campo · CO₂e</p>
+        <p className="mark">EcoTrack AI</p>
+        <p className="mark-sub">Bitácora de emisiones para negocios</p>
       </header>
 
       <main className="sheet">
         <div className="copy">
-          <h1>Dime el día. Te devuelvo un estimado.</h1>
+          <h1>Describe tu actividad. Te devolvemos un estimado.</h1>
           <p>
-            Una frase basta. Comida, km, modo de transporte. El prototipo
-            traduce lenguaje natural a kilogramos de CO₂ equivalente.
+            Sin formularios ni categorías técnicas: escribe una frase sobre tu
+            negocio y el sistema identifica actividades y calcula kg de CO₂
+            equivalente.
           </p>
         </div>
 
         <form className="diary" onSubmit={onSubmit}>
-          <label htmlFor="diary">Entrada del día</label>
+          <label htmlFor="diary">¿Qué pasó hoy en el negocio?</label>
           <textarea
             id="diary"
             value={text}
             onChange={(e) => setText(e.target.value)}
             rows={4}
             required
+            aria-describedby="diary-examples"
           />
+          <p id="diary-examples" className="examples">
+            Ejemplos: “5 camionetas de reparto y 200 kWh de electricidad” ·
+            “30 km en auto” · “almuerzo con carne”
+          </p>
           <div className="actions">
             <button type="submit" disabled={busy}>
-              {busy ? "Estimando…" : "Estimar huella"}
+              {busy ? (
+                <>
+                  Calculando
+                  <span className="dots" aria-hidden="true">
+                    <i />
+                    <i />
+                    <i />
+                  </span>
+                </>
+              ) : (
+                "Calcular emisiones"
+              )}
             </button>
             <button
               type="button"
               className="ghost"
               onClick={() => setText(SAMPLE)}
+              disabled={busy}
             >
               Usar ejemplo
             </button>
           </div>
         </form>
 
-        {error ? <p className="err">{error}</p> : null}
+        {error ? (
+          <p className="callout callout-error" role="alert">
+            {error}
+          </p>
+        ) : null}
 
         <section className="result" aria-live="polite">
           <Contour kg={estimate?.kgCO2e ?? 0} intensity={intensity} />
-          <div>
+          <div className="result-body">
+            <p className="result-label">Estimado total</p>
             <p className="figure">
               {estimate ? estimate.kgCO2e.toFixed(2) : "—"}
               <span> kg CO₂e</span>
             </p>
             {estimate?.activities.length ? (
-              <ul>
-                {estimate.activities.map((item) => (
-                  <li key={item.label}>
-                    <span>
-                      {item.label}
-                      {item.km != null ? ` · ${item.km} km` : ""}
-                    </span>
-                    <strong>{item.kgCO2e.toFixed(2)}</strong>
-                  </li>
-                ))}
-              </ul>
+              <>
+                <p className="result-label">Actividades detectadas</p>
+                <ul>
+                  {estimate.activities.map((item) => (
+                    <li key={item.activity}>
+                      <span>
+                        {item.label}
+                        {item.unit !== "porcion" ? ` · ${item.quantity} ${item.unit}` : ""}
+                      </span>
+                      <strong>{item.kgCO2e.toFixed(2)}</strong>
+                    </li>
+                  ))}
+                </ul>
+                <p className="methodology">
+                  Interpretación por reglas (IA simulada) + factores de
+                  emisión documentados en el código. {estimate.note}
+                </p>
+              </>
             ) : (
-              <p className="hint">
+              <p className="callout">
                 {estimate?.note ??
-                  "Aún no hay estimado. Escribe el día y pulsa el botón."}
+                  "Aún no hay estimado. Escribe qué pasó hoy y pulsa el botón."}
               </p>
             )}
           </div>
