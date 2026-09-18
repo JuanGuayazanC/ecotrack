@@ -12,6 +12,8 @@ npm run dev
 
 Abre [http://localhost:3000](http://localhost:3000).
 
+Código: [github.com/JuanGuayazanC/ecotrack](https://github.com/JuanGuayazanC/ecotrack)
+
 ## Replit
 
 1. En [replit.com](https://replit.com) → **Create Repl** → **Import from GitHub** (o sube esta carpeta).
