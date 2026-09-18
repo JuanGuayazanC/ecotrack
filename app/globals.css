@@ -1,0 +1,189 @@
+@import "tailwindcss";
+
+:root {
+  --peat: #1a2f28;
+  --moss: #3d6b54;
+  --copper: #c46b3a;
+  --lichen: #c5d4c0;
+  --paper: #e8ede6;
+  --ink: #14221c;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-display), system-ui, sans-serif;
+}
+
+.page {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.mast {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--peat) 18%, transparent);
+}
+
+.mark {
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.mark-sub {
+  margin: 0;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.72rem;
+  color: var(--moss);
+}
+
+.sheet {
+  width: min(720px, calc(100% - 2rem));
+  margin: 2.5rem auto 4rem;
+  display: grid;
+  gap: 1.75rem;
+}
+
+.copy h1 {
+  margin: 0 0 0.6rem;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  line-height: 1.15;
+  letter-spacing: -0.04em;
+}
+
+.copy p {
+  margin: 0;
+  max-width: 38rem;
+  color: color-mix(in srgb, var(--ink) 78%, white);
+}
+
+.diary label {
+  display: block;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.72rem;
+  margin-bottom: 0.45rem;
+  color: var(--moss);
+}
+
+.diary textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 1rem;
+  border: 1px solid color-mix(in srgb, var(--peat) 22%, transparent);
+  background: #f4f7f2;
+  color: var(--ink);
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.15rem;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.diary textarea:focus {
+  outline: 2px solid var(--copper);
+  outline-offset: 2px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.85rem;
+}
+
+button {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 600;
+  border: 0;
+  background: var(--peat);
+  color: var(--paper);
+  padding: 0.7rem 1.1rem;
+  cursor: pointer;
+  transition: transform 140ms var(--ease-out);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+button:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+button.ghost {
+  background: transparent;
+  color: var(--peat);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--peat) 30%, transparent);
+}
+
+.err {
+  margin: 0;
+  color: #8a2f1f;
+}
+
+.result {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 1.25rem;
+  align-items: center;
+  padding-top: 0.5rem;
+  border-top: 1px dashed color-mix(in srgb, var(--peat) 25%, transparent);
+}
+
+.contour {
+  width: 120px;
+  height: 120px;
+  border: 1px solid color-mix(in srgb, var(--peat) 18%, transparent);
+}
+
+.figure {
+  margin: 0 0 0.7rem;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 2rem;
+  letter-spacing: -0.04em;
+}
+
+.figure span {
+  font-size: 0.85rem;
+  margin-left: 0.4rem;
+  color: var(--moss);
+}
+
+.result ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.result li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.95rem;
+}
+
+.hint {
+  margin: 0;
+  color: color-mix(in srgb, var(--ink) 70%, white);
+}
+
+@media (max-width: 560px) {
+  .result {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  button {
+    transition: none;
+  }
+}

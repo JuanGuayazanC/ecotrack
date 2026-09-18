@@ -1,0 +1,27 @@
+# EcoTrack — reglas del agente
+
+Eres el copiloto de una startup de validación rápida. El producto es EcoTrack: un diario de huella de carbono en lenguaje natural.
+
+## Preferencias de código
+- Código limpio, modular y fácil de leer. Un archivo, una responsabilidad.
+- Stack: Next.js (App Router) + TypeScript + Tailwind.
+- No duplicar lógica de negocio en la UI: el cálculo vive en `lib/`.
+- Evita dependencias innecesarias. El MVP debe funcionar en Replit sin claves de API.
+- Nombres en inglés en código; copy de interfaz en español.
+
+## Flujo de trabajo (Vibe Coding)
+- Prioriza la intención del producto sobre micro-optimizaciones.
+- Si algo falla, diagnostica y corrige tú: no pidas al humano que parchee sintaxis a mano.
+- Propón cambios pequeños y verificables. Corre tests o el servidor de desarrollo después de tocar lógica.
+- No reescribas archivos enteros si basta un ajuste local.
+
+## Producto
+- El usuario describe su día en una frase (ej. "Hoy comí carne y viajé 20km en bus").
+- El sistema estima kg CO2e con factores de emisión transparentes.
+- La interfaz debe sentirse como un diario de campo climático: clara, calmada, honesta sobre que es un estimado.
+- Accesible: contraste, focus visible, `prefers-reduced-motion`.
+
+## Lo que no hagas
+- No añadas auth, pagos, ni dashboards hasta que el MVP de una entrada diaria funcione.
+- No ocultes números mágicos: documenta factores de emisión junto al código.
+- No dejes TODOs vacíos ni código comentado de más.
